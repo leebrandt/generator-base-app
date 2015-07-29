@@ -7,7 +7,7 @@ var chalk = require('chalk');
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
   init: function init(){
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../../package.json')));
+    this.pkg = yeoman.file.readJSON(path.join(__dirname, '../../package.json'));
 
         // invoke npm install on finish
     this.on('end', function() {
@@ -31,7 +31,6 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props){
 
         this.appName = props.appName;
-        this.slugifiedAppName = props.appName;
 
       cb();
     }.bind(this));
