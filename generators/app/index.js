@@ -3,9 +3,7 @@
 var path = require('path'),
     yeoman = require('yeoman-generator'),
     chalk = require('chalk'),
-    _ = require('underscore');
-    
-_.mixin(require('underscore.inflections'));
+    slugify = require('underscore.string/slugify');
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
@@ -34,7 +32,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props){
 
       this.appName = props.appName;
-      this.slugifiedAppName = _.slugify(this.appName);
+      this.slugifiedAppName = slugify(this.appName);
 
       cb();
     }.bind(this));
