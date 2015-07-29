@@ -1,8 +1,8 @@
 'use strict';
 
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
+var path = require('path'),
+    yeoman = require('yeoman-generator'),
+    chalk = require('chalk');
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
@@ -25,7 +25,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     var prompts = [{
       name: 'appName',
       message: 'Application Name',
-      default: 'my-app-name'
+      default: 'My Silly Application'
     }];
 
     this.prompt(prompts, function(props){
