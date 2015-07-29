@@ -17,12 +17,19 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "scaffold",
+    "framework",
+    "component",
+    "front-end",
+    "app",
+    "angular"
   ],
   "dependencies": {
     "yeoman-generator": "^0.19.0",
     "chalk": "^1.0.0",
-    "yosay": "^1.0.2"
+    "yosay": "^1.0.2",
+    "underscore.string":"2.3.0"
   },
   "devDependencies": {
     "mocha": "*"

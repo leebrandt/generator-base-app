@@ -1,57 +1,43 @@
 'use strict';
+
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
-  prompting: function () {
-    var done = this.async();
+var BaseGenerator = module.exports = function BaseGenerator(args, options, config){
+  yeoman.generators.Base.apply(this, arguments);
 
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the stylish ' + chalk.red('BaseApp') + ' generator!'
-    ));
+  this.on('end', function () {
+    this.installDependencies({ skipInstall: options['skip-install'],
+    callback: function () {
+      // Emit a new event - dependencies installed
+      this.emit('dependenciesInstalled');
+    }.bind(this) });
+  });
 
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+};
 
-    this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someOption;
+BaseGenerator.prototype.askFor = function askFor(){
+  var cb = this.async;
 
-      done();
-    }.bind(this));
-  },
+  console.log(chalk.magenta('Kickin this thing off...'));
 
-  writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
-    },
+  var prompts = [{
+    name: 'appName',
+    message: 'Application Name',
+    default: 'my-app-name'
+  }];
 
-    projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
-    }
-  },
+  this.prompt(prompts, function(props){
+    
+      this.appName = props.appName;
+      this.slugifiedAppName = this._.slugify(props.appName);
 
-  install: function () {
-    this.installDependencies();
-  }
-});
+    cb();
+  }).bind(this);
+};
+
+BaseGenerator.prototype.app = function app() {
+  this.template('_index.html', 'index.html');
+  this.template('_bower.json', 'package.json');
+  this.template('_package.json', 'package.json');
+};
