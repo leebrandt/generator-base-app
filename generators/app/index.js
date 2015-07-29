@@ -1,5 +1,7 @@
 'use strict';
 
+var util = require('util');
+var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 
@@ -14,7 +16,10 @@ var BaseAppGenerator = module.exports = function BaseAppGenerator(args, options)
     }.bind(this) });
   });
 
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
+
+util.inherits(BaseAppGenerator, yeoman.generator.Base);
 
 BaseAppGenerator.prototype.ask = function ask(){
   var cb = this.async;
