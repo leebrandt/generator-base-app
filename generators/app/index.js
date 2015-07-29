@@ -18,7 +18,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
   },
 
   ask: function ask(){
-    var cb = this.async;
+    var cb = this.async();
 
     console.log(chalk.magenta('Kickin this thing off...'));
 
@@ -31,7 +31,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props){
 
         this.appName = props.appName;
-        this.slugifiedAppName = this._.slugify(props.appName);
+        this.slugifiedAppName = props.appName;
 
       cb();
     }.bind(this));
