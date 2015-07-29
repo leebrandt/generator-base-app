@@ -1,49 +1,50 @@
 'use strict';
 
-var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 
-var BaseAppGenerator = module.exports = function BaseAppGenerator(args, options){
-  yeoman.generators.Base.apply(this, arguments);
+var BaseAppGenerator = yeoman.generators.Base.extend({
 
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'],
-    callback: function () {
-      // Emit a new event - dependencies installed
-      this.emit('dependenciesInstalled');
-    }.bind(this) });
-  });
+  init: function init(){
+    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
+        // invoke npm install on finish
+    this.on('end', function() {
+      if (!this.options['skip-install']) {
+        this.npmInstall();
+      }
+    });
+  },
 
-util.inherits(BaseAppGenerator, yeoman.generator.Base);
+  ask: function ask(){
+    var cb = this.async;
 
-BaseAppGenerator.prototype.ask = function ask(){
-  var cb = this.async;
+    console.log(chalk.magenta('Kickin this thing off...'));
 
-  console.log(chalk.magenta('Kickin this thing off...'));
+    var prompts = [{
+      name: 'appName',
+      message: 'Application Name',
+      default: 'my-app-name'
+    }];
 
-  var prompts = [{
-    name: 'appName',
-    message: 'Application Name',
-    default: 'my-app-name'
-  }];
+    this.prompt(prompts, function(props){
 
-  this.prompt(prompts, function(props){
+        this.appName = props.appName;
+        this.slugifiedAppName = this._.slugify(props.appName);
 
-      this.appName = props.appName;
-      this.slugifiedAppName = this._.slugify(props.appName);
+      cb();
+    }).bind(this);
 
-    cb();
-  }).bind(this);
+  },
 
-};
+  app: function app(){
+    this.template('_index.html', 'index.html');
+    this.template('_bower.json', 'package.json');
+    this.template('_package.json', 'package.json');
+  }
 
-BaseAppGenerator.prototype.app = function app() {
-  this.template('_index.html', 'index.html');
-  this.template('_bower.json', 'package.json');
-  this.template('_package.json', 'package.json');
-};
+
+});
+
+module.exports = BaseAppGenerator;
