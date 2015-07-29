@@ -34,7 +34,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
         this.slugifiedAppName = this._.slugify(props.appName);
 
       cb();
-    }).bind(this);
+    }.bind(this));
 
   },
 
