@@ -30,7 +30,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function(props){
 
-        this.appName = this._.camelize(props.appName);
+        this.appName = props.appName;
         this.slugifiedAppName = this._.slugify(props.appName);
 
       cb();
