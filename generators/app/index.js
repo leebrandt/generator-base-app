@@ -1,6 +1,7 @@
 'use strict';
 
-var path = require('path'),
+var util = require('util'),
+    path = require('path'),
     yeoman = require('yeoman-generator'),
     chalk = require('chalk');
 
