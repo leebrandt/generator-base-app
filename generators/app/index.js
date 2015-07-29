@@ -32,7 +32,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props){
 
       this.appName = props.appName;
-      this.slugifiedAppName = slugify(this.appName);
+      //this.slugifiedAppName = slugify(this.appName);
 
       cb();
     }.bind(this));
