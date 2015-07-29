@@ -1,9 +1,11 @@
 'use strict';
 
-var util = require('util'),
-    path = require('path'),
+var path = require('path'),
     yeoman = require('yeoman-generator'),
-    chalk = require('chalk');
+    chalk = require('chalk'),
+    _ = require('underscore');
+    
+_.mixin(require('underscore.inflections'));
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
@@ -32,7 +34,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function(props){
 
       this.appName = props.appName;
-      this.slugifiedAppName = this._.slugify(this.appName);
+      this.slugifiedAppName = _.slugify(this.appName);
 
       cb();
     }.bind(this));
