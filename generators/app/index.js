@@ -12,7 +12,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
   prompting: {
     askForProjectName: function ask(){
-      var cb = this.async;
+      var done = this.async();
 
       console.log(chalk.magenta('Kickin this thing off...'));
 
@@ -26,7 +26,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
         this.projectName = props.projectName;
 
-        cb();
+        done();
       }.bind(this));
 
     }
