@@ -2,7 +2,8 @@
 
 var path = require('path'),
     yeoman = require('yeoman-generator'),
-    chalk = require('chalk');
+    chalk = require('chalk'),
+    s = require('underscore.string');
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
@@ -25,6 +26,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
       this.prompt(prompts, function(props){
 
         this.projectName = props.projectName;
+        this.slugifiedProjectName = s.slugify(props.projectName);
 
         done();
       }.bind(this));
