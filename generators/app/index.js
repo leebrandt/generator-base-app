@@ -21,6 +21,10 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
         name: 'projectName',
         message: 'Application Name',
         default: this.appname
+      },{
+        name: 'projectDescription',
+        message: 'Project Description',
+        default: 'My app is cool, you like it.'
       }];
 
       this.prompt(prompts, function(props){
@@ -28,6 +32,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
         this.projectName = props.projectName;
         this.slugifiedProjectName = s.slugify(props.projectName);
         this.camelizedProjectName = s.camelize(props.projectName, true);
+        this.projectDescription = props.projectDescription;
 
         done();
       }.bind(this));
@@ -39,6 +44,18 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
     this.template('_index.html', 'index.html');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
+
+    this.copy('bowerrc', '.bowerrc');
+    this.copy('gitignore', '.gitignore');
+    this.copy('gulpfile.js');
+
+
+    this.mkdir('assets');
+
+    this.mkdir('modules');
+    this.template('modules/app.module.js', 'modules/app.module.js');
+
+    this.directory('modules/core');
   },
 
   finalizing: function finalizing(){
