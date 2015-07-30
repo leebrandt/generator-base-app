@@ -10,5 +10,5 @@
 	};
 
 	angular.module('core')
-		.controller('MainCtrl', [coreController])
+		.controller('MainCtrl', [coreController]);
 }());
