@@ -6,41 +6,40 @@ var path = require('path'),
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
-  init: function init(){
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../../package.json')));
-
-        // invoke npm install on finish
-    this.on('end', function() {
-      if (!this.options['skip-install']) {
-        this.npmInstall();
-      }
-    });
+  initializing: function init(){
+    this.pkg = require('../../package.json');
   },
 
-  ask: function ask(){
-    var cb = this.async;
+  prompting: {
+    askForProjectName: function ask(){
+      var cb = this.async;
 
-    console.log(chalk.magenta('Kickin this thing off...'));
+      console.log(chalk.magenta('Kickin this thing off...'));
 
-    var prompts = [{
-      name: 'projectName',
-      message: 'Application Name',
-      default: this.appname
-    }];
+      var prompts = [{
+        name: 'projectName',
+        message: 'Application Name',
+        default: this.appname
+      }];
 
-    this.prompt(prompts, function(props){
+      this.prompt(prompts, function(props){
 
-      this.projectName = props.projectName;
+        this.projectName = props.projectName;
 
-      cb();
-    }.bind(this));
+        cb();
+      }.bind(this));
 
+    }
   },
 
-  app: function app(){
+  writing: function app(){
     this.template('_index.html', 'index.html');
     this.template('_bower.json', 'bower.json');
     this.template('_package.json', 'package.json');
+  },
+
+  finalizing: function finalizing(){
+    this.installDependencies();
   }
 
 
