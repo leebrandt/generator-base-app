@@ -2,7 +2,7 @@ var gulp = require('gulp'),
 		sass = require('gulp-sass'),
 		inject = require('gulp-inject'),
 		wiredep = require('wiredep').stream,
-		browserSync = require('browser-sync'),
+		browserSync = require('browser-sync').create,
 		reload = browserSync.reload;
 
 var paths = {
@@ -35,15 +35,16 @@ gulp.task('wiredep', function(){
 });
 
 gulp.task('browser-sync', function(){
-	return browserSync({
-		server: {
-			baseDir: './'
-		}
-	});
+ 	browserSync.init({
+  	server: {
+    	baseDir: "./"
+    }
+  });
 });
 
 gulp.task('dev', ['sass', 'inject', 'wiredep', 'browser-sync'], function(){
 	gulp.watch(paths.sass, ['sass']);
 	gulp.watch(paths.html, [reload]);
 	gulp.watch(paths.scripts, ['inject', reload]);
+	gulp.watch('bower.json', ['wiredep']);
 });

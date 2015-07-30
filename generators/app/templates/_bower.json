@@ -1,6 +1,6 @@
 {
   "name": "<%= slugifiedProjectName %>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
   	"angular": "~1.3.13",
     "ui-router": "~0.2.13",
