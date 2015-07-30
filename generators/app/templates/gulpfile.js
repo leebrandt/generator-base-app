@@ -13,20 +13,20 @@ var paths = {
 }
 
 gulp.task('sass', function(){
-	return gulp.src(paths.sass)
+	gulp.src(paths.sass)
 		.pipe(sass())
 		.pipe(gulp.dest('assets/css'))
 		.pipe(reload({stream:true}));
 });
 
 gulp.task('inject', function(){
-	return gulp.src('./index.html')
+	gulp.src('./index.html')
 		.pipe(inject(gulp.src(paths.scripts, {read:false})))
 		.pipe(gulp.dest('./'));
 });	
 
 gulp.task('wiredep', function(){
-	return gulp.src('./index.html')
+	gulp.src('./index.html')
 		.pipe(wiredep({
 			directory: './lib/',
 			bowerJson: require('./bower.json')
