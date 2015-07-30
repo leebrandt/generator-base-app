@@ -20,21 +20,13 @@ gulp.task('sass', function(){
 });
 
 gulp.task('inject', function(){
-	return gulp.src('./index.html')
+	gulp.src('./index.html')
 		.pipe(inject(gulp.src(paths.scripts, {read:false})))
+		.pipe(wiredep())
 		.pipe(gulp.dest('./'));
 });	
 
-gulp.task('wiredep', function(){
-	return gulp.src('./index.html')
-		.pipe(wiredep({
-			directory: './lib/',
-			bowerJson: require('./bower.json')
-		}))
-		.pipe(gulp.dest('./'));
-});
-
-gulp.task('browser-sync', ['sass', 'inject', 'wiredep'], function(){
+gulp.task('browser-sync', ['sass', 'inject'], function(){
 	return browserSync({
 		server: {
 			baseDir: './'
