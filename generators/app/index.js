@@ -1,8 +1,8 @@
 'use strict';
 
-var path = require('path');
-var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
+var path = require('path'),
+    yeoman = require('yeoman-generator'),
+    chalk = require('chalk');
 
 var BaseAppGenerator = yeoman.generators.Base.extend({
 
@@ -22,11 +22,16 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
     console.log(chalk.magenta('Kickin this thing off...'));
 
-    this.prompt({
-      name: 'appName',
-      message: 'Application Name'
-    }, function(answer){
-      this.appName = answer.appName;
+    var prompts = [{
+      name: 'projectName',
+      message: 'Application Name',
+      default: this.appname
+    }];
+
+    this.prompt(prompts, function(props){
+
+      this.projectName = props.projectName;
+
       cb();
     }.bind(this));
 
