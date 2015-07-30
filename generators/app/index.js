@@ -22,15 +22,11 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
     console.log(chalk.magenta('Kickin this thing off...'));
 
-    var prompts = [{
+    this.prompt({
       name: 'appName',
       message: 'Application Name'
-    }];
-
-    this.prompt(prompts, function(answers){
-
-      this.appName = answers.appName;
-
+    }, function(answer){
+      this.appName = answer.appName;
       cb();
     }.bind(this));
 
