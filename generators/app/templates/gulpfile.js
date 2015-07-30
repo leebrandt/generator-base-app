@@ -35,7 +35,7 @@ gulp.task('wiredep', function(){
 });
 
 gulp.task('browser-sync', function(){
-	browserSync({
+	return browserSync({
 		server: {
 			baseDir: './'
 		}
