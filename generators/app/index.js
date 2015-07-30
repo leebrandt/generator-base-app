@@ -27,6 +27,7 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
         this.projectName = props.projectName;
         this.slugifiedProjectName = s.slugify(props.projectName);
+        this.camelizedProjectName = s.camelize(props.projectName, false);
 
         done();
       }.bind(this));
