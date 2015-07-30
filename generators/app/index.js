@@ -24,13 +24,12 @@ var BaseAppGenerator = yeoman.generators.Base.extend({
 
     var prompts = [{
       name: 'appName',
-      message: 'Application Name',
-      default: 'My Silly Application'
+      message: 'Application Name'
     }];
 
-    this.prompt(prompts, function(props){
+    this.prompt(prompts, function(answers){
 
-      this.appName = props.appName;
+      this.appName = answers.appName;
 
       cb();
     }.bind(this));
